@@ -1,0 +1,49 @@
+# Snakemake workflow: `3DChromTrans`
+
+[![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
+[![GitHub actions status](https://github.com/<owner>/<repo>/workflows/Tests/badge.svg?branch=main)](https://github.com/<owner>/<repo>/actions?query=branch%3Amain+workflow%3ATests)
+
+
+A Snakemake workflow for `measuring distances between two types of markers in Chromosome Translocation`
+
+## Installation
+
+You will need a current version of `snakemake` to run this workflow. To get `snakemake` please follow the install [instructions](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) on their website, but in brief once `conda` and `mamba` are installed you can install `snakemake` with:
+
+```
+mamba create -n snakemake -c conda-forge -c bioconda snakemake
+```
+
+Afterwards you can activate the `conda` environment and download the repository. And all additional dependencies will be handled by `snakemake`.
+
+```
+conda activate snakemake
+git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
+```
+
+## Running
+
+All parameters are described in `config/README.md` and you can modify any of them
+by modifying `config/config.yaml`. To execute change current directory to the directory `workflow` where `Snakefile` is located.
+
+```
+snakemake --cores all --use-conda Data_Analysis
+```
+
+### Output
+
+The file `results/Results_in_um_Nuclei.xlsx` will contain all distances between the two markers per each nuclei and per image
+the `results/Results_in_um_Markers.xlsx` detail information about each marker.
+
+## Usage
+
+The usage of this workflow is described in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
+
+If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <repo>sitory and its DOI (see above).
+
+# TODO
+
+* Replace `<owner>` and `<repo>` everywhere in the template (also under .github/workflows) with the correct `<repo>` name and owning user or organization.
+* Replace `<name>` with the workflow name (can be the same as `<repo>`).
+* Replace `<description>` with a description of what the workflow does.
+* The workflow will occur in the snakemake-workflow-catalog once it has been made public. Then the link under "Usage" will point to the usage instructions if `<owner>` and `<repo>` were correctly set.

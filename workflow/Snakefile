@@ -1,0 +1,142 @@
+# Workflow 3DChromTrans: for  measuring distances between two types of markers
+# in Chromosome Translocation
+#
+# Images were acquires with ZEISS LMS 980 microscope.
+# Objective Immersion="Oil" LensNA="1.4"
+# Model="Plan-Apochromat 63x/1.4 Oil DIC (UV) VIS-IR M27"
+# NominalMagnification="63"
+# WorkingDistance="193.0" WorkingDistanceUnit="um"
+# Zoom="3.6"
+# Voxel Size: 0.073x0.073x0.130
+#
+# Enviroment activation
+# >> conda activate snakemake
+#
+# Visualizing the DAG of jobs
+# >> snakemake --dag Data_Analysis | dot -Tpdf > dag.pdf
+#
+# Execution of a workflow with snakemake
+# >> snakemake --cores all --use-conda Data_Analysis
+#
+# In case of partial execution is possible to rerun the workflow
+# >> snakemake --cores all --use-conda --rerun-incomplete Data_Analysis
+#
+# Report generation
+# >> pip install pygments
+# >> snakemake Data_Analysis --report report.html
+#
+#
+# Author: Raul gomez-Riera
+# contact: raul.gomez@crg.es
+
+from snakemake.utils import min_version
+from tkinter.filedialog import askdirectory
+import os
+
+min_version("7.32.3")
+
+bold = "\033[1m"
+green = "\033[92m"
+cyan = "\033[36m"
+end = "\033[0m"
+
+
+msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite the tool!{end}{end}
+    {cyan} Author: Raul Gomez-Riera.
+            Title:
+            journal: {end}
+
+"""
+
+sys.stderr.write(msg)
+
+
+configfile: "../config/config.json"
+
+
+report: "report/workflow.rst"
+
+
+os.environ["PATH"] = "{config[imagejPATH]}" + os.pathsep + os.environ["PATH"]
+os.environ["PATH"] = "{config[cellprofilerPATH]}" + os.pathsep + os.environ["PATH"]
+os.environ["PATH"] = "{config[RscriptPATH]}" + os.pathsep + os.environ["PATH"]
+
+currentDirectory = os.getcwd()
+
+dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
+
+
+rule split_channels:
+    input:
+        "scripts\\DVsplit_headless.ijm",
+        dirpath,
+    localrule: True
+    output:
+        directory("SPLIT"),
+    shell:
+        "mkdir SPLIT && ImageJ-win64.exe -macro {input[0]} {input[1]},{output}"
+
+
+rule reslice_scale:
+    input:
+        "scripts\\ResliceZandScale_headless.ijm",
+        "SPLIT",
+    localrule: True
+    params:
+        "1",
+    output:
+        directory("RESLICE"),
+    shell:
+        "mkdir RESLICE && ImageJ-win64.exe -macro {input[0]} {input[1]},{output},{params}"
+
+
+rule cellpose:
+    input:
+        "RESLICE",
+    localrule: True
+    output:
+        directory("MASKS"),
+    params:
+        dim="120",  # nucleus diameter in pixels
+        thr="0.4",  # Flow threshold
+    conda:
+        "envs\\cellpose.yaml"
+    shell:
+        "python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --pretrained_model nuclei --diameter {params.dim} --flow_threshold {params.thr} --do_3D --fast_mode --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
+
+
+rule label_conversion:
+    input:
+        "scripts\\LabelConversions_headless.ijm",
+        "MASKS",
+        rules.reslice_scale.output,
+    localrule: True
+    output:
+        directory("CP_DATASET"),
+    shell:
+        "mkdir CP_DATASET && ImageJ-win64.exe -macro {input[0]} {input[1]},{output} && for %f in (ch00, ch01) do xcopy RESLICE\\*_%f.tif {output}"
+
+
+rule cellprofiler:
+    input:
+        "scripts\\3D_Distance_LowResolution.cppipe",
+        "CP_DATASET",
+    localrule: True
+    output:
+        directory("CP_OUT"),
+    shell:
+        "mkdir CP_OUT && CellProfiler.exe -c -r -p %CD%\\{input[0]} -o %CD%\\{output} -i %CD%\\{input[1]}"
+
+
+rule Data_Analysis:
+    input:
+        "scripts\\DataAnalysis_headless.R",
+        rules.cellprofiler.output,
+        "scripts\\Labeled2Dist_headless.ijm",
+    localrule: True
+    output:
+        report(directory("..\\results"), patterns=["{name}.xlsx"]),
+    params:
+        voxel="0.0731",  # Voxel Size in microns
+    shell:
+        "Rscript.exe {input[0]} {input[1]} {params.voxel} && ImageJ-win64.exe -macro {input[2]} {input[1]} && xcopy {input[1]}\\*.xlsx ..\\results\\"
