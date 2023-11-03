@@ -49,6 +49,7 @@ git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 Download and install the following softwares:
 * Fiji/image [instructions](https://imagej.net/imagej-wiki-static/Fiji/Downloads)
 * CellProfiler [instructions](https://cellprofiler.org/)
+
 Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
 
 ## Running
@@ -61,8 +62,8 @@ snakemake --cores all --use-conda Data_Analysis
 
 ## Output
 
-The file `results/Results_in_um_Nuclei.xlsx` will contain all distances between the two markers per each nuclei and per image
-the `results/Results_in_um_Markers.xlsx` detail information about each marker localization relative to the nucleus surface and its absolute coordinates as well.
+The file `results/Results_in_um_Nuclei.xlsx` will contain all distances between the two markers per each nuclei and per image.
+The `results/Results_in_um_Markers.xlsx` contain detail information about each marker localization relative to the nucleus surface and its absolute coordinates as well.
 
 ## 3D Visualization
 
