@@ -73,6 +73,10 @@ Then change current directory to the directory `workflow/scripts` where `3D_visu
 ```
 python 3D_visualization.py
 ```
+<p align="center">
+  <img width="496"  src="img/3Dvisualization.png" alt="3D visualization">
+</p>
+
 
 # TODO
 
