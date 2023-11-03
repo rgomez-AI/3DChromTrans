@@ -5,7 +5,8 @@
 # with the following probes:
 # * Fluorophore=Texas Red, Emission Wavelength=614nm
 # * Fluorophore=Alexa Fluor 488, Emission Wavelength=517nm
-# For nuclei detection DAPI probe, Emission Wavelength=465nm
+# For nuclei detection, cells were stained with
+# * DAPI, Emission Wavelength=465nm
 # 
 # Images were acquires with ZEISS LMS 980 microscope.
 # Objective Immersion="Oil" LensNA="1.4"

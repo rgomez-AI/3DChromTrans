@@ -44,10 +44,16 @@ conda activate snakemake
 git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 ```
 
+### Windows installation
+
+Download and install the following softwares:
+* Fiji/image [instructions](https://imagej.net/imagej-wiki-static/Fiji/Downloads)
+* CellProfiler [instructions](https://cellprofiler.org/)
+Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
+
 ## Running
 
-All parameters are described in `config/README.md` and you can modify any of them
-by modifying `config/config.yaml`. To execute change current directory to the directory `workflow` where `Snakefile` is located.
+To execute change current directory to the directory `workflow` where `Snakefile` is located.
 
 ```
 snakemake --cores all --use-conda Data_Analysis
