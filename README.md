@@ -6,7 +6,7 @@
 
 ### A Snakemake workflow for measuring distances between two types of markers in [Chromosomal Translocation](https://en.wikipedia.org/wiki/Chromosomal_translocation)
 
-The usage of this workflow is described in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
+The usage of this workflow is described also in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
 
 If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <repo>sitory and its DOI (see above).
 
@@ -17,7 +17,9 @@ The Fluorescence In Situ Hybridization (FISH) assay was carried out
 with the following fluorophores:
 * Texas Red, Emission Wavelength=614nm
 * Alexa Fluor 488, Emission Wavelength=517nm
-For nuclei detection, cells were stained with DAPI, Emission Wavelength=465nm
+
+For nuclei detection, cells were stained with 
+* DAPI, Emission Wavelength=465nm
 
 3D multiplex images of whole cells were acquired with ZEISS LMS 980 microscope in airyscan mode.
 * Objective Immersion="Oil" LensNA="1.4"
