@@ -1,6 +1,12 @@
 # Workflow 3DChromTrans: for  measuring distances between two types of markers
-# in Chromosome Translocation
+# in Chromosomal Translocation
 #
+# The Fluorescence In Situ Hybridization (FISH) assay were carried 
+# with the following probes:
+# * Fluorophore=Texas Red, Emission Wavelength=614nm
+# * Fluorophore=Alexa Fluor 488, Emission Wavelength=517nm
+# For nuclei detection DAPI probe, Emission Wavelength=465nm
+# 
 # Images were acquires with ZEISS LMS 980 microscope.
 # Objective Immersion="Oil" LensNA="1.4"
 # Model="Plan-Apochromat 63x/1.4 Oil DIC (UV) VIS-IR M27"
