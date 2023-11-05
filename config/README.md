@@ -6,9 +6,7 @@ the path following programs:
 * ``Rscript.exe``
 
 
-{
-
-	"imagejPATH":"[SetYourPathHere]\\Fiji.app", 
+{	"imagejPATH":"[SetYourPathHere]\\Fiji.app", 
 
 	"cellprofilerPATH":"[SetYourPathHere]\\CellProfiler\\", 
 
