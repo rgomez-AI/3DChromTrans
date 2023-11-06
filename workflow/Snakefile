@@ -16,6 +16,10 @@
 # Zoom="3.6"
 # Voxel Size: 0.073x0.073x0.130
 #
+# Acquired images should be chromatic corrected before going to the workflow
+# execution. This can be done by installing and executing "Chromagnon"
+# software and set the output as delta vision file format (.dv)
+#
 # Enviroment activation
 # >> conda activate snakemake
 #
