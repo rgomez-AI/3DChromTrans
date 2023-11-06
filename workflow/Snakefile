@@ -1,13 +1,13 @@
 # Workflow 3DChromTrans: for  measuring distances between two types of markers
 # in Chromosomal Translocation
 #
-# The Fluorescence In Situ Hybridization (FISH) assay were carried 
+# The Fluorescence In Situ Hybridization (FISH) assay were carried out
 # with the following probes:
 # * Fluorophore=Texas Red, Emission Wavelength=614nm
 # * Fluorophore=Alexa Fluor 488, Emission Wavelength=517nm
 # For nuclei detection, cells were stained with
 # * DAPI, Emission Wavelength=465nm
-# 
+#
 # Images were acquires with ZEISS LMS 980 microscope.
 # Objective Immersion="Oil" LensNA="1.4"
 # Model="Plan-Apochromat 63x/1.4 Oil DIC (UV) VIS-IR M27"
@@ -50,8 +50,8 @@ end = "\033[0m"
 
 msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite the tool!{end}{end}
     {cyan} Author: Raul Gomez-Riera.
-            Title:
-            journal: {end}
+           Title:
+           journal: {end}
 
 """
 
@@ -73,11 +73,19 @@ currentDirectory = os.getcwd()
 dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
 
 
+localrules:
+    split_channels,
+    reslice_scale,
+    cellpose,
+    label_conversion,
+    cellprofiler,
+    Data_Analysis,
+
+
 rule split_channels:
     input:
         "scripts\\DVsplit_headless.ijm",
         dirpath,
-    localrule: True
     output:
         directory("SPLIT"),
     shell:
@@ -88,7 +96,6 @@ rule reslice_scale:
     input:
         "scripts\\ResliceZandScale_headless.ijm",
         "SPLIT",
-    localrule: True
     params:
         "1",
     output:
@@ -100,7 +107,6 @@ rule reslice_scale:
 rule cellpose:
     input:
         "RESLICE",
-    localrule: True
     output:
         directory("MASKS"),
     params:
@@ -117,7 +123,6 @@ rule label_conversion:
         "scripts\\LabelConversions_headless.ijm",
         "MASKS",
         rules.reslice_scale.output,
-    localrule: True
     output:
         directory("CP_DATASET"),
     shell:
@@ -128,7 +133,6 @@ rule cellprofiler:
     input:
         "scripts\\3D_Distance_LowResolution.cppipe",
         "CP_DATASET",
-    localrule: True
     output:
         directory("CP_OUT"),
     shell:
@@ -140,7 +144,6 @@ rule Data_Analysis:
         "scripts\\DataAnalysis_headless.R",
         rules.cellprofiler.output,
         "scripts\\Labeled2Dist_headless.ijm",
-    localrule: True
     output:
         report(directory("..\\results"), patterns=["{name}.xlsx"]),
     params:

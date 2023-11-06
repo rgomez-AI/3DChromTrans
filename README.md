@@ -1,3 +1,4 @@
+
 # Snakemake workflow: `3DChromTrans`
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
@@ -51,6 +52,15 @@ Download and install the following softwares:
 * CellProfiler [instructions](https://cellprofiler.org/)
 
 Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
+
+## Input
+
+Acquired images should be chromatic corrected before going to workflow execution. 
+
+This can be done by installing and executing `Chromagnon` software [instructions](https://github.com/macronucleus/Chromagnon/releases) 
+
+ and set the output as delta vision file format (.dv)
+
 
 ## Running
 
