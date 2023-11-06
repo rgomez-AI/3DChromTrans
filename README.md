@@ -9,7 +9,7 @@
 
 The usage of this workflow is described also in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
 
-If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <repo>sitory and its DOI (see above).
+If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) `<repo>`sitory and its DOI (see above).
 
 
 ## Image acquisition settings for data generation
