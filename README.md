@@ -57,7 +57,7 @@ Configure the PATH as described in `config/README.md` by modifying `config/confi
 
 Acquired images should be chromatic corrected before going to workflow execution. 
 
-This can be done by installing and executing `Chromagnon` software [instructions](https://github.com/macronucleus/Chromagnon/releases) 
+This can be done by installing and executing `Chromagnon` software [instructions](https://github.com/macronucleus/Chromagnon/releases) on their website
 
  and set the output as delta vision file format (.dv)
 
