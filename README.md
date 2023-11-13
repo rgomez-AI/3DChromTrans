@@ -73,8 +73,23 @@ snakemake --cores all --use-conda Data_Analysis
 
 ## Output
 
-The file `results/Results_in_um_Nuclei.xlsx` will contain all distances between the two markers per each nuclei and per image.
-The `results/Results_in_um_Markers.xlsx` contain detail information about each marker localization relative to the nucleus surface and its absolute coordinates as well.
+The file `results/Results_in_um_Nuclei.xlsx` contain the following information about each Nucleus.
+
+* Location_Center_X: Absolute location in X coordinate.
+* Location_Center_Y: Absolute location in Y coordinate.
+* Location_Center_Z: Absolute location in Z coordinate.
+* EquivalentDiameter: According to the measured volume the expected diameter of the corresponding sphere.
+
+But also will contain all distances combination between the two markers per each nuclei and per image.
+* Min_Dist: Minimum distance value coming from all combination of distances between markers.
+
+The `results/Results_in_um_Markers.xlsx` contain the following information about each marker: 
+
+* Location_Center_X: Absolute location in X coordinate.
+* Location_Center_Y: Absolute location in Y coordinate.
+* Location_Center_Z: Absolute location in Z coordinate.
+* Min_Dist2Suf: Minimal distance to the nucleus surface.
+* Norm_Dist: Is the Min_Dist2Suf divided by minimal distance from the nuclear center to the suface.
 
 ## 3D Visualization
 
