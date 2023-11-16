@@ -75,17 +75,17 @@ snakemake --cores all --use-conda Data_Analysis
 
 ## Output
 
-The file `results/Results_in_um_Nuclei.xlsx` contain the following information about each Nucleus.
+As an output there are two files `results/Results_in_um_Nuclei.xlsx` which contain the following information about each Nucleus.
 
 * Location_Center_X: Absolute location in X coordinate.
 * Location_Center_Y: Absolute location in Y coordinate.
 * Location_Center_Z: Absolute location in Z coordinate.
 * EquivalentDiameter: According to the measured volume the expected diameter of the corresponding sphere.
 
-But also will contain all distances combination between the two markers per each nuclei and per image.
+All distances combination between the two markers per each nuclei and per image are also provided
 * Min_Dist: Minimum distance value coming from all combination of distances between markers.
 
-The `results/Results_in_um_Markers.xlsx` contain the following information about each marker: 
+And `results/Results_in_um_Markers.xlsx` file with the following information about each marker: 
 
 * Location_Center_X: Absolute location in X coordinate.
 * Location_Center_Y: Absolute location in Y coordinate.
