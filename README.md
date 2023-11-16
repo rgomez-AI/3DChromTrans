@@ -30,7 +30,7 @@ For nuclei detection, cells were stained with
 * Zoom="3.6"
 * Voxel Size: 0.073x0.073x0.130
 
-`IMPORTANT NOTE`: Lateral resulution of 0.073 um must be set
+**IMPORTANT NOTE**: Lateral resolution of 0.073 um must be achived
 
 ## Installation
 
