@@ -30,6 +30,8 @@ For nuclei detection, cells were stained with
 * Zoom="3.6"
 * Voxel Size: 0.073x0.073x0.130
 
+`IMPORTANT NOTE`: Lateral resulution of 0.073 um must be set
+
 ## Installation
 
 You will need a current version of `snakemake` to run this workflow. To get `snakemake` please follow the install [instructions](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) on their website, but in brief once `conda` and `mamba` are installed you can install `snakemake` with:
