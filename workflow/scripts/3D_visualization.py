@@ -42,7 +42,7 @@ class FileBrowser(tk.Tk):
         self.resizable(False, False)
         self.geometry('660x300')
         
-        self.FrameForImages = tk.LabelFrame(self, text="Choose Images Files")
+        self.FrameForImages = tk.LabelFrame(self, text="Choose images files from RESLICE directory")
         self.FrameForImages.grid(row=0, column=0, ipadx=10, ipady=4, padx=14, sticky='W')
 
         self.txtVarNucleus = tk.StringVar()
@@ -66,7 +66,7 @@ class FileBrowser(tk.Tk):
         self.txtGREEN = tk.Entry(self.FrameForImages, textvariable=self.txtVarGREEN)
         self.txtGREEN.grid(row=3, column=2, pady=3 ,ipadx=200, ipady=5)
 
-        self.FrameForAnalysis = tk.LabelFrame(self, text="Choose CellProfile Output Directory")
+        self.FrameForAnalysis = tk.LabelFrame(self, text="Choose CP_OUT directory")
         self.FrameForAnalysis.grid(row=1, column=0, ipadx=10, ipady=5, padx=14, sticky='W')
 
         self.txtVar = tk.StringVar()
@@ -84,7 +84,7 @@ class FileBrowser(tk.Tk):
         
         
     def browsefileNucleus(self):
-        filename = askopenfilename(title = "Select the Nuclei File",
+        filename = askopenfilename(title = "Select the CH02 - Nuclear Marker",
                                    filetypes=(("tiff files",
                                                "*.tif"),
                                               ("All files","*.*")))
@@ -93,7 +93,7 @@ class FileBrowser(tk.Tk):
 
 
     def browsefileRED(self):
-        filename = askopenfilename(title = "Select the RED File",
+        filename = askopenfilename(title = "Select the CH00 - RED Marker",
                                    filetypes=(("tiff files",
                                                "*.tif"),
                                               ("All files","*.*")))
@@ -102,7 +102,7 @@ class FileBrowser(tk.Tk):
 
 
     def browsefileGREEN(self):
-        filename = askopenfilename(title = "Select the GREEN File",
+        filename = askopenfilename(title = "Select the CH01 - GREEN Marker",
                                    filetypes=(("tiff files",
                                                "*.tif"),
                                               ("All files","*.*")))
@@ -110,7 +110,7 @@ class FileBrowser(tk.Tk):
         self.txtVarGREEN.set(filename)
 
     def browsedirectory(self):
-        filename = askdirectory(title = "Select Directory")
+        filename = askdirectory(title = "Select CP_OUT directory")
         self.txtOpen.delete(0, tk.END)
         self.txtVar.set(filename)
 

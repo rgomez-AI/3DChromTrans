@@ -3,3 +3,8 @@ resources/**
 logs/**
 .snakemake
 .snakemake/**
+CP_DATASET/
+CP_OUT/
+MASKS/
+RESLICE/
+SPLIT/

@@ -93,7 +93,7 @@ The `results/Results_in_um_Markers.xlsx` contain the following information about
 
 ## 3D Visualization
 
-You will need a current version of `napari` as python package, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
+For visualization of the results you will need a current version of `napari` as python package, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
 
 Afterwards you can activate the `napari` environment
 
@@ -106,6 +106,10 @@ Then change current directory to the directory `workflow/scripts` where `3D_visu
 ```
 python 3D_visualization.py
 ```
+<p align="center">
+  <img width=600 src="img/3Dvisualization_init.png" alt="3D visualization import">
+</p>
+
 <p align="center">
   <img src="img/3Dvisualization.png" alt="3D visualization">
 </p>
