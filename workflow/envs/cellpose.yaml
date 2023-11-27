@@ -6,4 +6,3 @@ dependencies:
   - python=3.10
   - pip:
     - cellpose==2.2.3
-prefix: 
