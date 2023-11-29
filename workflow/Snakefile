@@ -41,10 +41,13 @@
 # contact: raul.gomez@crg.es
 
 from snakemake.utils import min_version
+from snakemake.utils import report
 from tkinter.filedialog import askdirectory
+import platform
 import os
+import sys
 
-min_version("7.32.3")
+min_version("7.24.0")
 
 bold = "\033[1m"
 green = "\033[92m"
@@ -62,19 +65,47 @@ msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite
 sys.stderr.write(msg)
 
 
-configfile: "../config/config.json"
-
-
 report: "report/workflow.rst"
 
 
-os.environ["PATH"] = "{config[imagejPATH]}" + os.pathsep + os.environ["PATH"]
-os.environ["PATH"] = "{config[cellprofilerPATH]}" + os.pathsep + os.environ["PATH"]
-os.environ["PATH"] = "{config[RscriptPATH]}" + os.pathsep + os.environ["PATH"]
+configfile: "../config/config.json"
+
+
+OS = platform.system()
 
 currentDirectory = os.getcwd()
 
 dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
+
+
+if OS == "Linux":
+    sep = os.path.sep
+    conda_fiji = "envs" + sep + "fiji.yaml"
+    shell_split = "mkdir SPLIT | ImageJ --headless -macro {input[0]} {input[1]},{output}"
+    shell_reslice = "mkdir RESLICE | ImageJ --headless -macro {input[0]} {input[1]},{output},{params}"
+    shell_label = "mkdir CP_DATASET | ImageJ --headless -macro {input[0]} {input[1]},{output} | cp RESLICE/*ch0[0-1].tif {output}"
+    conda_cellprofiler = "envs" + sep + "cellprofiler.yaml"
+    shell_cellprofiler = "mkdir CP_OUT | cellprofiler -c -r -p {input[0]} -o {output} -i {input[1]}"
+    conda_R = "envs" + sep + "R.yaml"
+    shell_Analysis = "mkdir results | Rscript {input[0]} {input[1]} {params.voxel}"
+    shell_Analysis_final = "mkdir -p results | ImageJ -macro {input[0]} {input[1]} | cp {input[1]}/*.xlsx results/"
+
+elif OS == "Windows":
+
+    sep = "\\"
+    os.environ["PATH"] = "{config[imagejPATH]}" + sep + os.environ["PATH"]
+    os.environ["PATH"] = "{config[cellprofilerPATH]}" + sep + os.environ["PATH"]
+    os.environ["PATH"] = "{config[RscriptPATH]}" + sep + os.environ["PATH"]
+    conda_fiji = ""
+    conda_cellprofiler = ""
+    shell_split = "mkdir SPLIT && ImageJ-win64.exe -macro {input[0]} {input[1]},{output}"
+    shell_reslice = "mkdir RESLICE && ImageJ-win64.exe -macro {input[0]} {input[1]},{output},{params}"
+    shell_label = "mkdir CP_DATASET && ImageJ-win64.exe -macro {input[0]} {input[1]},{output} && for %f in (ch00, ch01) do xcopy RESLICE\\*_%f.tif {output}"
+    shell_cellprofiler = "mkdir CP_OUT && CellProfiler.exe -c -r -p %CD%\\{input[0]} -o %CD%\\{output} -i %CD%\\{input[1]}"
+    conda_R = ""
+    shell_Analysis = "Rscript.exe {input[0]} {input[1]} {params.voxel} && ImageJ-win64.exe -macro {input[2]} {input[1]} && xcopy {input[1]}\\*.xlsx ..\\results\\"
+else:
+    sys.exit()
 
 
 localrules:
@@ -86,26 +117,34 @@ localrules:
     Data_Analysis,
 
 
+rule all:
+    input:
+        "report.html"
+
 rule split_channels:
     input:
-        "scripts\\DVsplit_headless.ijm",
+        "scripts" + sep + "DVsplit_headless.ijm",
         dirpath,
     output:
         directory("SPLIT"),
+    conda:
+        conda_fiji
     shell:
-        "mkdir SPLIT && ImageJ-win64.exe -macro {input[0]} {input[1]},{output}"
+        shell_split
 
 
 rule reslice_scale:
     input:
-        "scripts\\ResliceZandScale_headless.ijm",
+        "scripts" + sep + "ResliceZandScale_headless.ijm",
         "SPLIT",
     params:
         "1",
     output:
         directory("RESLICE"),
+    conda:
+        conda_fiji
     shell:
-        "mkdir RESLICE && ImageJ-win64.exe -macro {input[0]} {input[1]},{output},{params}"
+        shell_reslice
 
 
 rule cellpose:
@@ -117,40 +156,73 @@ rule cellpose:
         dim="120",  # nucleus diameter in pixels
         thr="0.4",  # Flow threshold
     conda:
-        "envs\\cellpose.yaml"
+        "envs" + sep + "cellpose.yaml"
     shell:
         "python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --pretrained_model nuclei --diameter {params.dim} --flow_threshold {params.thr} --do_3D --fast_mode --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
 
 
 rule label_conversion:
     input:
-        "scripts\\LabelConversions_headless.ijm",
+        "scripts" + sep + "LabelConversions_headless.ijm",
         "MASKS",
         rules.reslice_scale.output,
     output:
         directory("CP_DATASET"),
+    conda:
+        conda_fiji
     shell:
-        "mkdir CP_DATASET && ImageJ-win64.exe -macro {input[0]} {input[1]},{output} && for %f in (ch00, ch01) do xcopy RESLICE\\*_%f.tif {output}"
+        shell_label
 
 
 rule cellprofiler:
     input:
-        "scripts\\3D_Distance_LowResolution.cppipe",
+        "scripts" + sep + "3D_Distance_LowResolution.cppipe",
         "CP_DATASET",
     output:
         directory("CP_OUT"),
+    conda:
+        conda_cellprofiler
     shell:
-        "mkdir CP_OUT && CellProfiler.exe -c -r -p %CD%\\{input[0]} -o %CD%\\{output} -i %CD%\\{input[1]}"
+        shell_cellprofiler
 
 
-rule Data_Analysis:
-    input:
-        "scripts\\DataAnalysis_headless.R",
-        rules.cellprofiler.output,
-        "scripts\\Labeled2Dist_headless.ijm",
-    output:
-        report(directory("..\\results"), patterns=["{name}.xlsx"]),
-    params:
-        voxel="0.0731",  # Voxel Size in microns
-    shell:
-        "Rscript.exe {input[0]} {input[1]} {params.voxel} && ImageJ-win64.exe -macro {input[2]} {input[1]} && xcopy {input[1]}\\*.xlsx ..\\results\\"
+if OS == "Windows":
+
+    rule Data_Analysis:
+        input:
+            "scripts" + sep + "DataAnalysis_headless.R",
+            rules.cellprofiler.output,
+            "scripts" + sep + "Labeled2Dist_headless.ijm",
+        output:
+            report(directory(".." + sep + "results"), patterns=["{name}.xlsx"]),
+        params:
+            voxel="0.0731",  # Voxel Size in microns
+        conda:
+            conda_R
+        shell:
+            shell_Analysis
+
+else:
+
+    rule R:
+        input:
+            "scripts" + sep + "DataAnalysis_headless.R",
+            rules.cellprofiler.output,
+        output:
+            directory("results")
+        params:
+            voxel="0.0731",  # Voxel Size in microns
+        conda:
+            conda_R
+        shell:
+            shell_Analysis
+
+    rule Data_Analysis:
+        input:
+            "scripts" + sep + "labeled2Dist_headless.ijm",
+            rules.cellprofiler.output,
+            rules.R.output,
+        conda:
+            conda_fiji
+        shell:
+            shell_Analysis_final
