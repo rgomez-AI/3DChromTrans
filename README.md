@@ -47,14 +47,17 @@ conda activate snakemake
 git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 ```
 
-### Windows installation
+### - Windows installation
 
 Download and install the following softwares:
-* [Fiji/image](https://imagej.net/imagej-wiki-static/Fiji/Downloads)
+* [Fiji/ImageJ](https://imagej.net/imagej-wiki-static/Fiji/Downloads) with [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
 * [CellProfiler](https://cellprofiler.org/)
 * [R](https://www.r-project.org/)
 
 Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
+
+### - Linux installation
+
 
 ## Input
 
@@ -93,7 +96,7 @@ And `results/Results_in_um_Markers.xlsx` file with the following information abo
 * Min_Dist2Suf: Minimal distance to the nucleus surface.
 * Norm_Dist: Is the Min_Dist2Suf divided by minimal distance from the nuclear center to the suface.
 
-## 3D Visualization
+## Results visual inspection
 
 For visualization of the results you will need a current version of `napari` as python package, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
 

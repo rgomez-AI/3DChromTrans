@@ -1,5 +1,4 @@
-# Workflow 3DChromTrans: for  measuring distances between two types of markers
-# in Chromosomal Translocation
+# Workflow 3DChromTrans: For  measuring distances between two types of markers in Chromosomal Translocation
 #
 # The Fluorescence In Situ Hybridization (FISH) assay were carried out
 # with the following probes:
@@ -40,8 +39,9 @@
 # Author: Raul gomez-Riera
 # contact: raul.gomez@crg.es
 
+
+
 from snakemake.utils import min_version
-from snakemake.utils import report
 from tkinter.filedialog import askdirectory
 import platform
 import os
@@ -87,8 +87,8 @@ if OS == "Linux":
     conda_cellprofiler = "envs" + sep + "cellprofiler.yaml"
     shell_cellprofiler = "mkdir CP_OUT | cellprofiler -c -r -p {input[0]} -o {output} -i {input[1]}"
     conda_R = "envs" + sep + "R.yaml"
-    shell_Analysis = "mkdir results | Rscript {input[0]} {input[1]} {params.voxel}"
-    shell_Analysis_final = "mkdir -p results | ImageJ -macro {input[0]} {input[1]} | cp {input[1]}/*.xlsx results/"
+    shell_Analysis = "mkdir DummyDir | Rscript {input[0]} {input[1]} {params.voxel}"
+    shell_Analysis_final = "mkdir -p ../results | ImageJ -macro {input[0]} {input[1]} | cp {input[1]}/*.xlsx ../results/ | rm -R DummyDir/"
 
 elif OS == "Windows":
 
@@ -114,6 +114,7 @@ localrules:
     cellpose,
     label_conversion,
     cellprofiler,
+    R,
     Data_Analysis,
 
 
@@ -209,7 +210,7 @@ else:
             "scripts" + sep + "DataAnalysis_headless.R",
             rules.cellprofiler.output,
         output:
-            directory("results")
+            directory("DummyDir")
         params:
             voxel="0.0731",  # Voxel Size in microns
         conda:
@@ -222,6 +223,8 @@ else:
             "scripts" + sep + "labeled2Dist_headless.ijm",
             rules.cellprofiler.output,
             rules.R.output,
+        output:
+            report(directory("../results"), patterns=["{name}.xlsx"]),
         conda:
             conda_fiji
         shell:
