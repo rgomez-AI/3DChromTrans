@@ -114,7 +114,6 @@ localrules:
     cellpose,
     label_conversion,
     cellprofiler,
-    R,
     Data_Analysis,
 
 
@@ -215,6 +214,7 @@ else:
             voxel="0.0731",  # Voxel Size in microns
         conda:
             conda_R
+        localrule: true
         shell:
             shell_Analysis
 
