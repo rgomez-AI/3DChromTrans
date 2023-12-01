@@ -68,6 +68,11 @@ Activate ImageJ enviroment, update it and install [MorphoLibJ](https://ijpb.gith
 conda activate .snakemake/conda/5e364b382b37e105acbafec63b46b664_
 ImageJ
 ```
+after that deactivate the enviroment with:
+
+```
+conda deactivate
+```
 
 ## Input
 
