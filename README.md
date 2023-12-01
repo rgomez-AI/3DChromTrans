@@ -22,15 +22,15 @@ with the following fluorophores:
 For nuclei detection, cells were stained with 
 * DAPI, Emission Wavelength=465nm
 
-3D multiplex images of whole cells were acquired with ZEISS LMS 980 microscope in airyscan mode.
+3D multiplex images of whole cells were acquired with ZEISS LMS 980 microscope in Airyscan mode.
 * Objective Immersion="Oil" LensNA="1.4"
 * Model="Plan-Apochromat 63x/1.4 Oil DIC (UV) VIS-IR M27"
 * NominalMagnification="63"
 * WorkingDistance="193.0" WorkingDistanceUnit="um"
 * Zoom="3.6"
-* Voxel Size: 0.073x0.073x0.130
+* Voxel Size: 0.073x0.073x0.130 
 
-**IMPORTANT NOTE**: Lateral resolution of 0.073 um must be achived
+<span style="color:red">*NOTE*</span> : Lateral resolution of 0.073 um must be achived
 
 ## Installation
 
@@ -47,17 +47,27 @@ conda activate snakemake
 git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 ```
 
-### - Windows installation
+### - For Windows installation
 
 Download and install the following softwares:
-* [Fiji/ImageJ](https://imagej.net/imagej-wiki-static/Fiji/Downloads) with [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
+* [Fiji/ImageJ](https://fiji.sc/) with [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
 * [CellProfiler](https://cellprofiler.org/)
 * [R](https://www.r-project.org/)
 
 Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
 
-### - Linux installation
+### - For Linux installation
 
+Create required environments with:
+```
+snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
+```
+
+Activate ImageJ enviroment, update it and install [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
+```
+conda activate .snakemake/conda/5e364b382b37e105acbafec63b46b664_
+ImageJ
+```
 
 ## Input
 
@@ -96,7 +106,19 @@ And `results/Results_in_um_Markers.xlsx` file with the following information abo
 * Min_Dist2Suf: Minimal distance to the nucleus surface.
 * Norm_Dist: Is the Min_Dist2Suf divided by minimal distance from the nuclear center to the suface.
 
-## Results visual inspection
+## Report generation
+
+For report generation snakemake required `pygments` module and it can be installed with:
+```
+pip install pygments
+```
+ 
+Afterward you can create a report file with the name *report.html* as the example bellow:
+```
+snakemake Data_Analysis --report report.html
+```
+
+## Visual inspection of the results
 
 For visualization of the results you will need a current version of `napari` as python package, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
 
@@ -120,7 +142,7 @@ python 3D_visualization.py
 </p>
 
 
-# TODO
+## TODO
 
 * Replace `<owner>` and `<repo>` everywhere in the template (also under .github/workflows) with the correct `<repo>` name and owning user or organization.
 * Replace `<name>` with the workflow name (can be the same as `<repo>`).
