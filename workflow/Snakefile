@@ -158,7 +158,7 @@ rule cellpose:
     conda:
         "envs" + sep + "cellpose.yaml"
     shell:
-        "python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --pretrained_model nuclei --diameter {params.dim} --flow_threshold {params.thr} --do_3D --fast_mode --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
+        "python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --pretrained_model nuclei --diameter {params.dim} --flow_threshold {params.thr} --do_3D --min_size 400 --fast_mode --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
 
 
 rule label_conversion:

@@ -1,6 +1,6 @@
 CellProfiler Pipeline: http://www.cellprofiler.org
 Version:5
-DateRevision:425
+DateRevision:424
 GitHash:
 ModuleCount:38
 HasImagePlaneDetails:False
@@ -203,7 +203,7 @@ EnhanceOrSuppressFeatures:[module_num:18|svn_version:'Unknown'|variable_revision
     Select the input image:Resize_green
     Name the output image:EnhanceOrSuppressFeatures_green
     Select the operation:Enhance
-    Feature size:5
+    Feature size:10
     Feature type:Speckles
     Range of hole sizes:1,10
     Smoothing scale:2.0
@@ -349,7 +349,7 @@ EnhanceOrSuppressFeatures:[module_num:29|svn_version:'Unknown'|variable_revision
     Select the input image:Resize_red
     Name the output image:EnhanceOrSuppressFeatures_red
     Select the operation:Enhance
-    Feature size:5
+    Feature size:10
     Feature type:Speckles
     Range of hole sizes:1,10
     Smoothing scale:2.0
@@ -440,7 +440,7 @@ FilterObjects:[module_num:36|svn_version:'Unknown'|variable_revision_number:10|s
     Select the location of the rules or classifier file:Elsewhere...|
     Rules or classifier file name:rules.txt
     Class number:1
-    Measurement count:1
+    Measurement count:3
     Additional object count:0
     Assign overlapping child to:Both parents
     Keep removed objects as a separate set?:No
@@ -450,6 +450,16 @@ FilterObjects:[module_num:36|svn_version:'Unknown'|variable_revision_number:10|s
     Minimum value:200
     Filter using a maximum measurement value?:No
     Maximum value:1.0
+    Select the measurement to filter by:AreaShape_MinorAxisLength
+    Filter using a minimum measurement value?:Yes
+    Minimum value:12
+    Filter using a maximum measurement value?:No
+    Maximum value:25
+    Select the measurement to filter by:AreaShape_MajorAxisLength
+    Filter using a minimum measurement value?:No
+    Minimum value:0.0
+    Filter using a maximum measurement value?:Yes
+    Maximum value:60
     Allow fuzzy feature matching?:No
 
 RelateObjects:[module_num:37|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
