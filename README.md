@@ -63,12 +63,14 @@ Create required environments with:
 snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
 ```
 
-Activate ImageJ enviroment, update it and install [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
+Activate ImageJ enviroment, update it and install [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) 
+plugins
 ```
-conda activate .snakemake/conda/5e364b382b37e105acbafec63b46b664_
+conda activate .snakemake/conda/[Your ImageJ enviroment ID] 
+
 ImageJ
 ```
-after that deactivate the enviroment with:
+and after that deactivate the enviroment with:
 
 ```
 conda deactivate
