@@ -22,6 +22,9 @@
 # Enviroment activation
 # >> conda activate snakemake
 #
+# Create required environments for workflow execution
+# >> snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
+#
 # Visualizing the DAG of jobs
 # >> snakemake --dag Data_Analysis | dot -Tpdf > dag.pdf
 #
@@ -203,7 +206,7 @@ if OS == "Windows":
             shell_Analysis
 
 else:
-
+    localrules: R
     rule R:
         input:
             "scripts" + sep + "DataAnalysis_headless.R",
@@ -214,7 +217,6 @@ else:
             voxel="0.0731",  # Voxel Size in microns
         conda:
             conda_R
-        localrule: true
         shell:
             shell_Analysis
 
