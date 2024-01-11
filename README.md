@@ -60,7 +60,7 @@ Configure the PATH as described in `config/README.md` by modifying `config/confi
 
 Create required environments with:
 ```
-snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
+snakemake --conda-create-envs-only --conda-prefix workflow/envs/
 ```
 
 ## Input
