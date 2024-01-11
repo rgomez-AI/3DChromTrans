@@ -58,9 +58,11 @@ Configure the PATH as described in `config/README.md` by modifying `config/confi
 
 ### - For Linux installation
 
-Create required environments with:
+Create required environments by going to the directory `3dchromtrans/workflow` 
+
+where `Snakefile` is located and execute the following command:
 ```
-snakemake --conda-create-envs-only --conda-prefix workflow/envs/
+snakemake --cores all --use-conda --conda-create-envs-only Data_Analysis
 ```
 
 ## Input
