@@ -50,7 +50,7 @@ git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 ### - For Windows installation
 
 Download and install the following softwares:
-* [Fiji/ImageJ](https://fiji.sc/) with [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) plugins
+* [Fiji/ImageJ](https://fiji.sc/)
 * [CellProfiler](https://cellprofiler.org/)
 * [R](https://www.r-project.org/)
 
@@ -61,19 +61,6 @@ Configure the PATH as described in `config/README.md` by modifying `config/confi
 Create required environments with:
 ```
 snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
-```
-
-Activate ImageJ enviroment, update it and install [MorphoLibJ](https://ijpb.github.io/MorphoLibJ/) 
-plugins
-```
-conda activate .snakemake/conda/[Your ImageJ enviroment ID] 
-
-ImageJ
-```
-and after that deactivate the enviroment with:
-
-```
-conda deactivate
 ```
 
 ## Input
