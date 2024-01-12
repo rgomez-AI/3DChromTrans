@@ -116,7 +116,7 @@ snakemake Data_Analysis --report report.html
 
 ## Visual inspection of the results
 
-For visualization of the results you will need a current version of `napari` as python package, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
+For visualization of the results you will need a current version of `napari` in a new enviroment, please follow the install [instructions](https://napari.org/stable/tutorials/fundamentals/installation.html) on their website.
 
 Afterwards you can activate the `napari` environment
 
