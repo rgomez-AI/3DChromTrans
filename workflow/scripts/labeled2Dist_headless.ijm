@@ -24,13 +24,14 @@ parentPath =File.getParent(mPath);
 Path = parentPath + File.separator + input;
 print("input="+Path);
 
-print("Installing Bio-Formats Macro Extensions ....");
-run("Bio-Formats Macro Extensions");
-wait(1000);
-print("\\Update:Installing Bio-Formats Macro Extensions .... Done!");
-
-open(Path + File.separator + "Results_in_um_Nuclei.csv");
-IJ.renameResults("Results");
+print("Loading Results_in_um_Nuclei.csv table");
+flag = 1;
+while (flag) {
+	open(Path + File.separator + "Results_in_um_Nuclei.csv");
+	IJ.renameResults("Results");
+	flag = !isOpen("Results");
+}
+print("\\Update:Loading Results_in_um_Nuclei.csv table .... Done!");
 
 ImageNumberID = 0;
 Nucleus_present=newArray();
@@ -70,7 +71,7 @@ run("Quit");
 
 function loadImageFile(input, FileName, NewfileName) { 
 // load Image file and create a mask image
-	Ext.openImagePlus(input + File.separator + FileName);
+	run("Bio-Formats Windowless Importer","open="+ input + File.separator + FileName + " autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
     NewfileName = replace(FileName,".tiff","-dist");
 	return NewfileName;
 }

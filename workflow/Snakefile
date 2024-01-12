@@ -84,7 +84,7 @@ dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directo
 if OS == "Linux":
     sep = os.path.sep
     conda_fiji = "envs" + sep + "fiji.yaml"
-    shell_split = "mkdir SPLIT | ImageJ --headless -macro {input[0]} {input[1]},{output}"
+    shell_split = "mkdir SPLIT | ImageJ --update update | ImageJ --headless -macro {input[0]} {input[1]},{output}"
     shell_reslice = "mkdir RESLICE | ImageJ --headless -macro {input[0]} {input[1]},{output},{params}"
     shell_label = "mkdir CP_DATASET | ImageJ --headless -macro {input[0]} {input[1]},{output} | cp RESLICE/*ch0[0-1].tif {output}"
     conda_cellprofiler = "envs" + sep + "cellprofiler.yaml"
