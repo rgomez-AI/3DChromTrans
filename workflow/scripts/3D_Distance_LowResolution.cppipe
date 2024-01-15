@@ -227,12 +227,12 @@ Threshold:[module_num:20|svn_version:'Unknown'|variable_revision_number:12|show_
     Threshold strategy:Global
     Thresholding method:Otsu
     Threshold smoothing scale:1
-    Threshold correction factor:0.6
+    Threshold correction factor:5
     Lower and upper bounds on threshold:0.0,1.0
     Manual threshold:0.0
     Select the measurement to threshold with:None
     Two-class or three-class thresholding?:Three classes
-    Log transform before thresholding?:No
+    Log transform before thresholding?:Yes
     Assign pixels in the middle intensity class to the foreground or the background?:Background
     Size of adaptive window:200
     Lower outlier fraction:0.05
@@ -242,7 +242,7 @@ Threshold:[module_num:20|svn_version:'Unknown'|variable_revision_number:12|show_
     # of deviations:2.0
     Thresholding method:Otsu
 
-RemoveHoles:[module_num:21|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+RemoveHoles:[module_num:21|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
     Select the input image:Threshold_green
     Name the output image:RemoveHoles_green
     Size of holes to fill:3
@@ -373,12 +373,12 @@ Threshold:[module_num:31|svn_version:'Unknown'|variable_revision_number:12|show_
     Threshold strategy:Global
     Thresholding method:Otsu
     Threshold smoothing scale:2
-    Threshold correction factor:0.25
+    Threshold correction factor:5
     Lower and upper bounds on threshold:0.0,1.0
     Manual threshold:0.0
     Select the measurement to threshold with:None
     Two-class or three-class thresholding?:Three classes
-    Log transform before thresholding?:No
+    Log transform before thresholding?:Yes
     Assign pixels in the middle intensity class to the foreground or the background?:Background
     Size of adaptive window:50
     Lower outlier fraction:0.05
@@ -452,7 +452,7 @@ FilterObjects:[module_num:36|svn_version:'Unknown'|variable_revision_number:10|s
     Maximum value:1.0
     Select the measurement to filter by:AreaShape_MinorAxisLength
     Filter using a minimum measurement value?:Yes
-    Minimum value:12
+    Minimum value:9
     Filter using a maximum measurement value?:No
     Maximum value:25
     Select the measurement to filter by:AreaShape_MajorAxisLength
@@ -462,7 +462,7 @@ FilterObjects:[module_num:36|svn_version:'Unknown'|variable_revision_number:10|s
     Maximum value:60
     Allow fuzzy feature matching?:No
 
-RelateObjects:[module_num:37|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+RelateObjects:[module_num:37|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
     Parent objects:Nuclei
     Child objects:Filter_RED
     Calculate child-parent distances?:Both
@@ -472,7 +472,7 @@ RelateObjects:[module_num:37|svn_version:'Unknown'|variable_revision_number:5|sh
     Name the output object:RelateObjects
     Parent name:None
 
-ExportToSpreadsheet:[module_num:38|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+ExportToSpreadsheet:[module_num:38|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
     Select the column delimiter:Comma (",")
     Add image metadata columns to your object data file?:Yes
     Add image file and folder names to your object data file?:Yes
