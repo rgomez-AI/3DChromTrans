@@ -65,6 +65,13 @@ where `Snakefile` is located and execute the following command:
 snakemake --cores all --use-conda --conda-create-envs-only Data_Analysis
 ```
 
+## Workflow Diagram
+
+<p align="center">
+  <img width=150 src="img/dag.svg" alt="Workflow execution order">
+</p>
+
+
 ## Input
 
 Acquired images should be chromatic corrected before going to workflow execution. 
