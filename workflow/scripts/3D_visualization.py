@@ -229,8 +229,6 @@ class Visualization3D():
                                 visible=False
                                 )
 
-
-        #idxM = dataM['ImageNumber'] == int(selectedImages)
         idxM = dataM['ImageNumber'] == selectedImages[0]
         newDataM = dataM[idxM].reset_index(drop=True)
         idxRED = newDataM.Marker.str.startswith('RED')
