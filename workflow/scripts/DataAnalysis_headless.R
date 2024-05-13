@@ -1,11 +1,23 @@
 # Extract data from "3D_Dist Cellprofiler" output
 
-if (!require("tcltk")) install.packages('tcltk', repos = "https://cran.rstudio.com/")
-if (!require("readr")) install.packages('readr', repos = "https://cran.rstudio.com/")
-if (!require("dplyr")) install.packages('dplyr', repos = "https://cran.rstudio.com/")
-if (!require("usedist")) install.packages('usedist', repos = "https://cran.rstudio.com/")
-if (!require("tidyr")) install.packages('tidyr', repos = "https://cran.rstudio.com/")
-if (!require("writexl")) install.packages('writexl', repos = "https://cran.rstudio.com/")
+if (!require("tcltk")) install.packages('tcltk', 
+					 dependencies = TRUE, 
+                                        repos = 'https://cran.r-project.org')
+if (!require("readr")) install.packages('readr', 
+					 dependencies = TRUE, 
+                                        repos = 'https://cran.r-project.org')
+if (!require("dplyr")) install.packages('dplyr', 					
+					 dependencies = TRUE, 
+                                         repos = 'https://cran.r-project.org')
+if (!require("usedist")) install.packages('usedist', 					
+					   dependencies = TRUE, 
+                                          repos = 'https://cran.r-project.org')
+if (!require("tidyr")) install.packages('tidyr', 					
+					  dependencies = TRUE, 
+                                         repos = 'https://cran.r-project.org')
+if (!require("writexl")) install.packages('writexl', 					
+					   dependencies = TRUE, 
+                                           repos = 'https://cran.r-project.org')
 
 library(tcltk)
 library(readr)
