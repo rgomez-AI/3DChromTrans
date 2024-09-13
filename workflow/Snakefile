@@ -60,9 +60,8 @@ end = "\033[0m"
 
 msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite the tool!{end}{end}
     {cyan} Author: Raul Gomez-Riera.
-           Title:
-           journal: {end}
-
+           
+            {end}
 """
 
 sys.stderr.write(msg)
@@ -70,16 +69,9 @@ sys.stderr.write(msg)
 
 report: "report/workflow.rst"
 
-
-configfile: "../config/config.json"
-
-
 OS = platform.system()
 
 currentDirectory = os.getcwd()
-
-dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
-
 
 if OS == "Linux":
     sep = os.path.sep
@@ -93,23 +85,10 @@ if OS == "Linux":
     shell_Analysis = "mkdir DummyDir ; Rscript {input[0]} {input[1]} {params.voxel}"
     shell_Analysis_final = "mkdir -p ../results ; ImageJ -macro {input[0]} {input[1]} ; cp {input[1]}/*.xlsx ../results/ ; rm -R DummyDir/"
 
-elif OS == "Windows":
-
-    sep = "\\"
-    os.environ["PATH"] = "{config[imagejPATH]}" + sep + os.environ["PATH"]
-    os.environ["PATH"] = "{config[cellprofilerPATH]}" + sep + os.environ["PATH"]
-    os.environ["PATH"] = "{config[RscriptPATH]}" + sep + os.environ["PATH"]
-    conda_fiji = ""
-    conda_cellprofiler = ""
-    shell_split = "mkdir SPLIT && ImageJ-win64.exe -macro {input[0]} {input[1]},{output}"
-    shell_reslice = "mkdir RESLICE && ImageJ-win64.exe -macro {input[0]} {input[1]},{output},{params}"
-    shell_label = "mkdir CP_DATASET && ImageJ-win64.exe -macro {input[0]} {input[1]},{output} && for %f in (ch00, ch01) do xcopy RESLICE\\*_%f.tif {output}"
-    shell_cellprofiler = "mkdir CP_OUT && CellProfiler.exe -c -r -p %CD%\\{input[0]} -o %CD%\\{output} -i %CD%\\{input[1]}"
-    conda_R = ""
-    shell_Analysis = "Rscript.exe {input[0]} {input[1]} {params.voxel} && ImageJ-win64.exe -macro {input[2]} {input[1]} && xcopy {input[1]}\\*.xlsx ..\\results\\"
 else:
-    sys.exit()
+    sys.exit("\n Ony for Linux Operative System!\n")
 
+dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
 
 localrules:
     split_channels,
@@ -189,45 +168,29 @@ rule cellprofiler:
         shell_cellprofiler
 
 
-if OS == "Windows":
 
-    rule Data_Analysis:
-        input:
-            "scripts" + sep + "DataAnalysis_headless.R",
+localrules: R
+rule R:
+    input:
+        "scripts" + sep + "DataAnalysis_headless.R",
             rules.cellprofiler.output,
-            "scripts" + sep + "Labeled2Dist_headless.ijm",
-        output:
-            report(directory(".." + sep + "results"), patterns=["{name}.xlsx"]),
-        params:
-            voxel="0.0731",  # Voxel Size in microns
-        conda:
-            conda_R
-        shell:
-            shell_Analysis
+    output:
+        directory("DummyDir")
+    params:
+        voxel="0.0731",  # Voxel Size in microns
+    conda:
+        conda_R
+    shell:
+        shell_Analysis
 
-else:
-    localrules: R
-    rule R:
-        input:
-            "scripts" + sep + "DataAnalysis_headless.R",
-            rules.cellprofiler.output,
-        output:
-            directory("DummyDir")
-        params:
-            voxel="0.0731",  # Voxel Size in microns
-        conda:
-            conda_R
-        shell:
-            shell_Analysis
-
-    rule Data_Analysis:
-        input:
-            "scripts" + sep + "labeled2Dist_headless.ijm",
-            rules.cellprofiler.output,
-            rules.R.output,
-        output:
-            report(directory("../results"), patterns=["{name}.xlsx"]),
-        conda:
-            conda_fiji
-        shell:
-            shell_Analysis_final
+rule Data_Analysis:
+    input:
+        "scripts" + sep + "labeled2Dist_headless.ijm",
+        rules.cellprofiler.output,
+        rules.R.output,
+    output:
+        report(directory("../results"), patterns=["{name}.xlsx"]),
+    conda:
+        conda_fiji
+    shell:
+        shell_Analysis_final

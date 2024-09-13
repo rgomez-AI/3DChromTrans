@@ -2,14 +2,15 @@
 # Snakemake workflow: `3DChromTrans`
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/<owner>/<repo>/workflows/Tests/badge.svg?branch=main)](https://github.com/<owner>/<repo>/actions?query=branch%3Amain+workflow%3ATests)
 
 
-## For measuring distances between two types of markers in [Chromosomal Translocation](https://en.wikipedia.org/wiki/Chromosomal_translocation)
+## Measure distances between two types of markers during [FISH Assay](https://www.pnas.org/doi/abs/10.1073/pnas.79.14.4381) after [Chromosomal Translocation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6337718/) event
 
-The usage of this workflow is described also in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
+## Author
 
-If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) `<repo>`sitory and its DOI (see above).
+* [Raul Gomez Riera](https://orcid.org/0000-0003-4197-180X)
+
+If you use this workflow in a paper, don't forget to give credits to the author by citing the URL of this repo.
 
 
 ## Image acquisition settings for data generation
@@ -47,16 +48,6 @@ conda activate snakemake
 git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
 ```
 
-### - For Windows installation
-
-Download and install the following softwares:
-* [Fiji/ImageJ](https://fiji.sc/)
-* [CellProfiler](https://cellprofiler.org/)
-* [R](https://www.r-project.org/)
-
-Configure the PATH as described in `config/README.md` by modifying `config/config.json`. 
-
-### - For Linux installation
 
 Create required environments by going to the directory `3dchromtrans/workflow` 
 
@@ -80,6 +71,7 @@ This can be done by installing and executing `Chromagnon` software [instructions
 
  and set the output as delta vision file format (.dv)
 
+Sample dataset provided by [Anna Oncins](https://es.linkedin.com/in/annaoncins) are images of Mantle cell lymphoma: [download](https://public-docs.crg.es/almu/rgomez/Anna_Oncins/Dataset.zip)
 
 ## Running
 
@@ -149,11 +141,3 @@ python 3D_visualization.py
 <p align="center">
   <img src="img/3Dvisualization.png" alt="3D visualization">
 </p>
-
-
-## TODO
-
-* Replace `<owner>` and `<repo>` everywhere in the template (also under .github/workflows) with the correct `<repo>` name and owning user or organization.
-* Replace `<name>` with the workflow name (can be the same as `<repo>`).
-* Replace `<description>` with a description of what the workflow does.
-* The workflow will occur in the snakemake-workflow-catalog once it has been made public. Then the link under "Usage" will point to the usage instructions if `<owner>` and `<repo>` were correctly set.
