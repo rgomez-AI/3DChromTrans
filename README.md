@@ -45,11 +45,11 @@ Afterwards you can activate the `conda` environment and download the repository.
 
 ```
 conda activate snakemake
-git clone https://gitlab.linux.crg.es/rgomez/3dchromtrans.git
+git clone https://github.com/rgomez-AI/3DChromTrans.git
 ```
 
 
-Create required environments by going to the directory `3dchromtrans/workflow` 
+Create required environments by going to the directory `3DchromTrans/workflow` 
 
 where `Snakefile` is located and execute the following command:
 ```
@@ -61,6 +61,16 @@ snakemake --cores all --use-conda --conda-create-envs-only Data_Analysis
 <p align="center">
   <img width=150 src="img/dag.svg" alt="Workflow execution order">
 </p>
+
+| Component         | Script                                 |    Description                                                  |
+|-------------------|----------------------------------------|-----------------------------------------------------------------|
+| split_channels    | DVsplit_headless.ijm                   |  Convert .DV file into TIF file per channel                     |
+| reslice_scale     | ResliceZandScale_headless.ijm          |  Make isotropic the 3D space by image interpolation             |
+| cellpose          | cellpose                               |  Detect and create nuclei mask                                  |
+| label_conversion  | LabelConversions_headless.ijm          |  Convert nuclei mask into labeled image                         |  
+| cellprofiler      | 3D_Distance_LowResolution.cppipe       |  Detect and provide the coordinate per nucleus of both markers  |
+| R                 | DataAnalysis_headless.R                |  Calculate all possible distance combination between markers    |
+| DataAnalysis      | labeled2Dist_headless.ijm              |  Generate 3D distance maps for visual inspection of the results |
 
 
 ## Input
