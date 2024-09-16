@@ -60,8 +60,8 @@ end = "\033[0m"
 
 msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite the tool!{end}{end}
     {cyan} Author: Raul Gomez-Riera.
-           
-            {end}
+     GitHub: https://github.com/rgomez-AI/3DChromTrans           
+    {end}
 """
 
 sys.stderr.write(msg)
@@ -86,7 +86,9 @@ if OS == "Linux":
     shell_Analysis_final = "mkdir -p ../results ; ImageJ -macro {input[0]} {input[1]} ; cp {input[1]}/*.xlsx ../results/ ; rm -R DummyDir/"
 
 else:
-    sys.exit("\n Ony for Linux Operative System!\n")
+    msg = f"""{red}\n Warning: It run on linux platform only\n {end}"""
+    sys.stderr.write(msg)
+    sys.exit()
 
 dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
 
