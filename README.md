@@ -64,12 +64,12 @@ snakemake --cores all --use-conda --conda-create-envs-only Data_Analysis
 
 | Component         | Script                                 |    Description                                                  |
 |-------------------|----------------------------------------|-----------------------------------------------------------------|
-| split_channels    | DVsplit_headless.ijm                   |  Convert .DV file into .TIF file per channel                     |
+| split_channels    | DVsplit_headless.ijm                   |  Convert .DV file into .TIF file per channel                    |
 | reslice_scale     | ResliceZandScale_headless.ijm          |  Make isotropic the 3D space by image interpolation             |
 | cellpose          | cellpose                               |  Detect and create nuclei mask                                  |
 | label_conversion  | LabelConversions_headless.ijm          |  Convert nuclei mask into labeled image                         |  
-| cellprofiler      | 3D_Distance_LowResolution.cppipe       |  Detect and provide the coordinates per nucleus of both markers  |
-| R                 | DataAnalysis_headless.R                |  Calculate all possible distance combinations between markers    |
+| cellprofiler      | 3D_Distance_LowResolution.cppipe       |  Detect and provide the coordinates per nucleus of both markers |
+| R                 | DataAnalysis_headless.R                |  Calculate all possible distance combinations between markers   |
 | DataAnalysis      | labeled2Dist_headless.ijm              |  Generate 3D distance maps for visual inspection of the results |
 
 
@@ -81,7 +81,7 @@ This can be done by installing and executing `Chromagnon` software [instructions
 
  and set the output as delta vision file format (.dv)
 
-Sample dataset provided by Anna Oncins are images of Mantle cell lymphoma: [download](https://public-docs.crg.es/almu/rgomez/Anna_Oncins/Dataset.zip)
+Sample dataset provided by Anna Oncins is an image of Mantle cell lymphoma: [download](https://public-docs.crg.es/almu/rgomez/Anna_Oncins/Dataset.zip)
 
 ## Running
 
