@@ -144,6 +144,10 @@ Change your current location to the directory `workflow/scripts` where `3D_visua
 ```
 python 3D_visualization.py
 ```
+Choose as input : 
+* Each channel image located at `workflow/RESLICE` directory
+* Results located at `workflow/CP_OUT` directory
+
 <p align="center">
   <img width=600 src="img/3Dvisualization_init.png" alt="3D visualization import">
 </p>
