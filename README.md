@@ -49,7 +49,7 @@ git clone https://github.com/rgomez-AI/3DChromTrans.git
 ```
 
 
-Create required environments by going to the directory `3DchromTrans/workflow` 
+Create required environments by going to the directory `3DChromTrans/workflow` 
 
 where `Snakefile` is located and execute the following command:
 ```
