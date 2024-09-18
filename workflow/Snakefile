@@ -66,12 +66,9 @@ msg = f"""{green}{bold}Thanks for using 3DChromTrans and please remember to cite
 
 sys.stderr.write(msg)
 
-
 report: "report/workflow.rst"
 
 OS = platform.system()
-
-currentDirectory = os.getcwd()
 
 if OS == "Linux":
     sep = os.path.sep
@@ -90,7 +87,11 @@ else:
     sys.stderr.write(msg)
     sys.exit()
 
-dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
+dirpath = os.getcwd()
+
+if sys.argv[4] != "--conda-create-envs-only":
+    currentDirectory = os.getcwd()
+    dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
 
 localrules:
     split_channels,
