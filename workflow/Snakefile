@@ -55,6 +55,7 @@ min_version("7.24.0")
 bold = "\033[1m"
 green = "\033[92m"
 cyan = "\033[36m"
+red =  "\033[31m"
 end = "\033[0m"
 
 
