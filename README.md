@@ -29,7 +29,7 @@ For nuclei detection, cells were stained with
 * NominalMagnification="63"
 * WorkingDistance="193.0" WorkingDistanceUnit="um"
 * Zoom="3.6"
-* Voxel Size: 0.073x0.073x0.130 
+* Voxel Size: 0.073x0.073x0.130 um
 
 *NOTE* : Lateral resolution of 0.073 um must be achived
 
