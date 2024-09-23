@@ -81,7 +81,7 @@ This can be done by installing and executing `Chromagnon` software [instructions
 
  and set the output as delta vision file format (.dv)
 
-Sample dataset provided by Anna Oncins from [Renee Beekman](https://orcid.org/0000-0001-7081-7874) Labs is an image of Mantle cell lymphoma: [download](https://public-docs.crg.es/almu/rgomez/Anna_Oncins/Dataset.zip)
+Sample dataset provided by Anna Oncins from [Renee Beekman](https://orcid.org/0000-0001-7081-7874) Lab is an image of Mantle cell lymphoma: [download](https://public-docs.crg.es/almu/rgomez/Anna_Oncins/Dataset.zip)
 
 ## Running
 
