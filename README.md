@@ -136,7 +136,7 @@ conda activate napari-env
 Then install openpyxl library to read/write Excel 2010 xlsx/xlsm/xltx/xltm files.
 
 ```
-conda install anaconda::openpyxl
+pip install openpyxl
 ```
 
 Change your current location to the directory `workflow/scripts` where `3D_visualization.py` is located for script execution.
