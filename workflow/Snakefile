@@ -26,7 +26,7 @@
 # >> snakemake --core all --use-conda --conda-create-envs-only Data_Analysis
 #
 # Visualizing the DAG of jobs
-# >> snakemake --dag Data_Analysis | dot -Tpdf > dag.pdf
+# >> snakemake Data_Analysis --dag | dot -Tpdf > dag.pdf
 #
 # Execution of a workflow with snakemake
 # >> snakemake --cores all --use-conda Data_Analysis
@@ -76,6 +76,7 @@ if OS == "Linux":
     conda_fiji = "envs" + sep + "fiji.yaml"
     shell_split = "mkdir SPLIT ; ImageJ --update update ; ImageJ --headless -macro {input[0]} {input[1]},{output}"
     shell_reslice = "mkdir RESLICE ; ImageJ --headless -macro {input[0]} {input[1]},{output},{params}"
+    shell_cellpose = "mkdir MASKS ; python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --diameter {params.dim} --flow_threshold {params.thr} --do_3D --min_size 400 --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
     shell_label = "mkdir CP_DATASET ; ImageJ --headless -macro {input[0]} {input[1]},{output} ; cp RESLICE/*ch0[0-1].tif {output}"
     conda_cellprofiler = "envs" + sep + "cellprofiler.yaml"
     shell_cellprofiler = "mkdir CP_OUT ; cellprofiler -c -r -p {input[0]} -o {output} -i {input[1]}"
@@ -90,7 +91,7 @@ else:
 
 dirpath = os.getcwd()
 
-if sys.argv[4] != "--conda-create-envs-only":
+if (len(sys.argv) == 5 and sys.argv[4] != "--conda-create-envs-only"):
     currentDirectory = os.getcwd()
     dirpath = askdirectory(initialdir=currentDirectory, title="Select Images Directory")
 
@@ -144,7 +145,7 @@ rule cellpose:
     conda:
         "envs" + sep + "cellpose.yaml"
     shell:
-        "python -m cellpose --dir {input} --img_filter _ch02 --z_axis 0 --pretrained_model nuclei --diameter {params.dim} --flow_threshold {params.thr} --do_3D --min_size 400 --fast_mode --exclude_on_edges --use_gpu --save_tif --no_npy --savedir {output} --verbose"
+        shell_cellpose
 
 
 rule label_conversion:
