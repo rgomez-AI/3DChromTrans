@@ -224,8 +224,6 @@ class Visualization3D():
                                 scale = SCALE,
                                 size=3,
                                 shading='spherical',
-                                edge_width=0,
-                                edge_width_is_relative=False,
                                 visible=False
                                 )
 
@@ -264,8 +262,6 @@ class Visualization3D():
                                 scale = SCALE,
                                 size=3,
                                 shading='spherical',
-                                edge_width=0,
-                                edge_width_is_relative=False,
                                 visible=False
                                 )
 
@@ -301,8 +297,6 @@ class Visualization3D():
                                 scale = SCALE,
                                 size=3,
                                 shading='spherical',
-                                edge_width=0,
-                                edge_width_is_relative=False,
                                 visible=False
                                 )
         
