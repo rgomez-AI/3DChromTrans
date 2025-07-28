@@ -101,7 +101,11 @@ function DistMap(i){
 	run("Duplicate...", "duplicate");	
 	run("Macro...", "code=v=(v=="+i+") stack");
 	run("Multiply...", "value=65535 stack");
-	run("Make Binary", "background=Dark calculate black");
+	setAutoThreshold("Default dark 16-bit no-reset");
+	//run("Threshold...");
+	setThreshold(65534, 65535, "raw");
+	setOption("BlackBackground", true);
+	run("Convert to Mask", "background=Dark black");
 	run("Distance Map", "stack");
 }
 
